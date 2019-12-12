@@ -1,0 +1,24 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: xionghao
+  Date: 2019-12-12
+  Time: 13:55
+  To change this template use File | Settings | File Templates.
+--%>
+<%--@elvariable id="userForm" type="xh.zero.site.UserForm"--%>
+<%--@elvariable id="title" type="java.lang.String"--%>
+<html>
+<head>
+    <title>${title}</title>
+</head>
+<body>
+<h2>${title}</h2>
+<form:form method="post" modelAttribute="userForm">
+    <form:label path="username">Username</form:label><br>
+    <form:input path="username"/><br>
+    <form:label path="age">Age</form:label><br>
+    <form:input path="age"/><br><br>
+    <input type="submit" value="Save">
+</form:form>
+</body>
+</html>

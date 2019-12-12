@@ -11,9 +11,6 @@ import java.util.Map;
 @Controller
 public class LoginController {
 
-    @Inject
-    private User user;
-
     @ResponseBody
     @RequestMapping({"/", "/home", "/dashboard"})
     public String home() {
@@ -33,24 +30,23 @@ public class LoginController {
         return new RedirectView("/home", true);
     }
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
-    @ModelAttribute("user")
-    public User userHome() {
-        user.setName("Haha");
-        System.out.println("loginX: " + user.getName());
-        return user;
-    }
+//    @RequestMapping(value = "/home", method = RequestMethod.GET)
+//    @ModelAttribute("user")
+//    public User userHome() {
+//        user.setName("Haha");
+//        System.out.println("loginX: " + user.getName());
+//        return user;
+//    }
 
     // 响应内容协商
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
     @ResponseBody
     public User user(@PathVariable("userId") String userId) {
         User user = new User();
-        user.setId(userId);
+        user.setId(Long.parseLong(userId));
         user.setName("user1");
         user.setAge(20);
         return user;
     }
-
 
 }

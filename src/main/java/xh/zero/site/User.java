@@ -7,9 +7,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Service
 public class User {
-    private String id;
+    private long id;
     private String name;
     private int age;
+
+    public User(long id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    public User() {
+    }
 
     public String getName() {
         return name;
@@ -19,11 +28,11 @@ public class User {
         this.name = name;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
