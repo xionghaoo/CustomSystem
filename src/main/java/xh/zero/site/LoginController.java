@@ -1,12 +1,12 @@
 package xh.zero.site;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.inject.Inject;
+import java.util.Map;
 
 @Controller
 public class LoginController {
@@ -20,11 +20,37 @@ public class LoginController {
         return "Home";
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/", params = "name")
-    public String greeting(@RequestParam("name") String name) {
-        user.setName(name);
-        return "hello, " + user.getName();
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String showLogin(Map<String, Object> model) {
+        model.put("title", "abc");
+        return "login";
     }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public View login(LoginForm form) {
+        System.out.println("username: " + form.getUsername());
+        System.out.println("password: " + form.getPassword());
+        return new RedirectView("/home", true);
+    }
+
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    @ModelAttribute("user")
+    public User userHome() {
+        user.setName("Haha");
+        System.out.println("loginX: " + user.getName());
+        return user;
+    }
+
+    // 响应内容协商
+    @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
+    @ResponseBody
+    public User user(@PathVariable("userId") String userId) {
+        User user = new User();
+        user.setId(userId);
+        user.setName("user1");
+        user.setAge(20);
+        return user;
+    }
+
 
 }
